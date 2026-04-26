@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .text-biolum { color: #00f3ff; }
+  .text-toxic { color: #39ff14; }
+  .border-biolum { border-color: #00f3ff; }
+  .glow-biolum { text-shadow: 0 0 10px #00f3ff, 0 0 30px #00f3ff66; }
+  .glow-toxic { text-shadow: 0 0 10px #39ff14, 0 0 30px #39ff1466; }
+  .glass-panel {
+    background: rgba(0, 243, 255, 0.03);
+    border: 1px solid rgba(0, 243, 255, 0.15);
+    backdrop-filter: blur(12px);
+  }
+  .glass-panel-danger {
+    background: rgba(180, 0, 255, 0.05);
+    border: 1px solid rgba(180, 0, 255, 0.2);
+    backdrop-filter: blur(12px);
+  }
+  .scanline {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 243, 255, 0.015) 2px,
+      rgba(0, 243, 255, 0.015) 4px
+    );
+  }
+}
+
+@keyframes glitch {
+  0%, 100% { clip-path: inset(0 0 98% 0); transform: translateX(0); }
+  10% { clip-path: inset(30% 0 40% 0); transform: translateX(-4px); }
+  20% { clip-path: inset(70% 0 10% 0); transform: translateX(4px); }
+  30% { clip-path: inset(10% 0 80% 0); transform: translateX(-2px); }
+  40% { clip-path: inset(50% 0 30% 0); transform: translateX(2px); }
+  50% { clip-path: inset(20% 0 60% 0); transform: translateX(-3px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translateX(3px); }
+  70% { clip-path: inset(5% 0 85% 0); transform: translateX(-1px); }
+  80% { clip-path: inset(45% 0 45% 0); transform: translateX(1px); }
+  90% { clip-path: inset(15% 0 75% 0); transform: translateX(-2px); }
+}
+
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.glitch-text::before {
+  color: #00f3ff;
+  animation: glitch 3s infinite linear;
+  animation-delay: 0.1s;
+}
+.glitch-text::after {
+  color: #39ff14;
+  animation: glitch 3s infinite linear;
+  animation-delay: 0.3s;
+  opacity: 0.7;
+}
+
+@keyframes pulse-biolum {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.pulse-biolum { animation: pulse-biolum 2s ease-in-out infinite; }
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track { animation: ticker 20s linear infinite; }
